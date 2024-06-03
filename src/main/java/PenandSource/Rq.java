@@ -76,8 +76,7 @@ public class Rq {
     public String getParam(String paramName, String defaultValue){
         String value = req.getParameter(paramName);
 
-//        if (value.replace('\u00A0',' ').trim().equals("")) {
-        if (value == null) {
+        if (value == null || value.replace('\u00A0',' ').trim().equals("")) {
             return defaultValue;
         }
         return value;
