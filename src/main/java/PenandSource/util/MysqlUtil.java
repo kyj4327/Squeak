@@ -107,7 +107,8 @@ public class MysqlUtil {
                 Map<String, Object> row = new HashMap<>();
 
                 for (int columnIndex = 0; columnIndex < columnSize; columnIndex++) {
-                    String columnName = metaData.getColumnName(columnIndex + 1);
+//                    String columnName = metaData.getColumnName(columnIndex + 1);
+                    String columnName = metaData.getColumnLabel(columnIndex + 1);
                     Object value = rs.getObject(columnName);
 
                     if (value instanceof Long) {
