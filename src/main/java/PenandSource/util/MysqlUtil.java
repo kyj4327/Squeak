@@ -59,14 +59,14 @@ public class MysqlUtil {
 
         if (connections.containsKey(currentThreadId) == false) {
             try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
+                Class.forName("org.mariadb.jdbc.Driver");
             } catch (ClassNotFoundException e) {
                 throw new MysqlUtilException(e);
             }
 
             Connection connection = null;
 
-            String url = "jdbc:mysql://" + dbHost + "/" + dbName
+            String url = "jdbc:mariadb://" + dbHost + "/" + dbName
                     + "?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull&connectTimeout=60";
             try {
                 connection = DriverManager.getConnection(url, dbLoginId, dbLoginPw);

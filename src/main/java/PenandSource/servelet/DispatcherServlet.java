@@ -22,7 +22,7 @@ public class DispatcherServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        MysqlUtil.setDBInfo("localhost", "root", "", "squeak");
+        MysqlUtil.setDBInfo("localhost", "root", "1234", "squeak");
         MysqlUtil.setDevMode(true);
 
         Rq rq = new Rq(req, resp);
