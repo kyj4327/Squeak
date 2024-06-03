@@ -76,11 +76,10 @@ public class UserDiaryController extends Controller{
     public void actionWrite(Rq rq) {
         String title = rq.getParam("title", "");
         String content = rq.getParam("content", "");
-        String stupidCost = rq.getParam("stupidCost", "");
-        String diet = rq.getParam("diet", "");
+        String stupidCost = rq.getParam("stupidCost", "현명한 소비생활!!!");
+        String diet = rq.getParam("diet", "배고파...");
 
         // 리다이렉트 -> 리스트로 보내준다.
-//        String redirectURI = rq.getParam("redirectURI", "../diary/list");
         String redirectURI = rq.getParam("redirectURI", "../diary/list");
 
 
