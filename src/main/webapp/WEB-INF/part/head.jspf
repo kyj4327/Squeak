@@ -1,0 +1,49 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="PenandSource.Rq" %>
+
+<%@ page import="java.util.Map" %>
+
+
+<%
+    Map<String, Object> loginedMemberRow = (Map<String, Object>) request.getAttribute("loginedMemberRow");
+    boolean isLogined = (boolean) request.getAttribute("isLogined");
+    int loginedMemberId = (int) request.getAttribute("loginedMemberId");
+%>
+
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- 모바일에서 디자인이 축소되지 않게 하기 위한 코드 -->
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>커뮤니티 게시판</title>
+
+</head>
+<body>
+
+<header class="top-bar">
+        <% if(isLogined) { %>
+    <div>
+<%--        "<%=loginedMemberRow.get("name")%>" 님 환영합니다.--%>
+    </div>
+        <% } %>
+
+<nav class="menu-box-1">
+    <ul style="display:flex; gap: 0 10px">
+        <li><a href="/user/diary/list">게시물 리스트</a></li>
+
+        <% if(!isLogined) { %>
+        <li><a href="/user/member/join">회원가입</a></li>
+        <% } %>
+
+        <% if(!isLogined) { %>
+        <li><a href="/user/member/login">로그인</a></li>
+        <% } %>
+
+        <% if(isLogined) { %>
+        <li><a href="/user/member/doLogout">로그아웃</a></li>
+        <% } %>
+    </ul>
+</nav>
