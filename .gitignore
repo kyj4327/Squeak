@@ -311,3 +311,7 @@ gradle-app.setting
 *.hprof
 
 # End of https://www.toptal.com/developers/gitignore/api/maven,gradle
+
+
+#MysqlUtil 제외하기
+src/main/java/PenandSource/util/MysqlUtil.java

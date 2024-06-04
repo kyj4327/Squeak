@@ -1,8 +1,10 @@
 package PenandSource.servelet;
 
 import PenandSource.Rq;
+import PenandSource.controller.UserBuketListController;
 import PenandSource.controller.UserDiaryController;
 import PenandSource.controller.UserHomeController;
+import PenandSource.controller.UserMapDiaryController;
 import PenandSource.util.MysqlUtil;
 import PenandSource.util.SecSql;
 import jakarta.servlet.ServletException;
@@ -22,7 +24,7 @@ public class DispatcherServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        MysqlUtil.setDBInfo("localhost", "root", "1234", "squeak");
+        MysqlUtil.setDBInfo("localhost", "root", "", "squeak");
         MysqlUtil.setDevMode(true);
 
         Rq rq = new Rq(req, resp);
@@ -32,8 +34,7 @@ public class DispatcherServlet extends HttpServlet {
 //        System.out.printf("%s/%s/%s\n", controllerTypeName, controllerName, actionMethodName);
 
 
-        // 모든 요청 들어가기 전에 실행되어야하는 실행문 -->
-
+        // 모든 요청 들어가기 전에 실행되어야하는 실행문 start-->
         HttpSession session = req.getSession();
 
         boolean isLogined = false;
@@ -56,7 +57,7 @@ public class DispatcherServlet extends HttpServlet {
         rq.setAttr("loginedMemberId", loginedMemberId);
         rq.setAttr("loginedMemberRow", loginedMemberRow);
 
-        // 모든 요청 들어가기 전에 실행되어야하는 실행문 끝  <--
+        // 모든 요청 들어가기 전에 실행되어야하는 실행문 끝 end <--
 
 
         switch (rq.getControllerTypeName()) {
@@ -64,10 +65,15 @@ public class DispatcherServlet extends HttpServlet {
                     -> {
                 UserHomeController userHomeController = new UserHomeController();
                 UserDiaryController userDiaryController = new UserDiaryController();
+                UserMapDiaryController userMapDiaryController = new UserMapDiaryController();
+                UserBuketListController userBuketListController = new UserBuketListController();
 
                 switch (rq.getControllerName()) {
                     case "home" -> userHomeController.performAction(rq);
                     case "diary" -> userDiaryController.performAction(rq);
+                    // mapDiary -> 이슈 발생 = mapdiary 로 한번이상 접속시 쿠키에 남아서 브라우져가 값을 계속 소문자로 변경한다 애초에 소문자로 바꿈
+                    case "mapdiary" -> userMapDiaryController.performAction(rq);
+                    case "bucketList" -> userBuketListController.performAction(rq);
                 }
             }
         }

@@ -59,14 +59,14 @@ public class MysqlUtil {
 
         if (connections.containsKey(currentThreadId) == false) {
             try {
-                Class.forName("org.mariadb.jdbc.Driver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
             } catch (ClassNotFoundException e) {
                 throw new MysqlUtilException(e);
             }
 
             Connection connection = null;
 
-            String url = "jdbc:mariadb://" + dbHost + "/" + dbName
+            String url = "jdbc:mysql://" + dbHost + "/" + dbName
                     + "?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull&connectTimeout=60";
             try {
                 connection = DriverManager.getConnection(url, dbLoginId, dbLoginPw);
@@ -107,8 +107,11 @@ public class MysqlUtil {
                 Map<String, Object> row = new HashMap<>();
 
                 for (int columnIndex = 0; columnIndex < columnSize; columnIndex++) {
-                	String columnName = metaData.getColumnLabel(columnIndex + 1);
+                    String columnName = metaData.getColumnName(columnIndex + 1);
+
+                    System.out.println(columnName);
                     Object value = rs.getObject(columnName);
+                    System.out.println(value);
 
                     if (value instanceof Long) {
                         int numValue = (int) (long) value;

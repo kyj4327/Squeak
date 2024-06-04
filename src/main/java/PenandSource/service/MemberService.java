@@ -42,4 +42,8 @@ public class MemberService {
     private Member getMemberByNameANDeMail(String name, String email) {
         return memberRepository.getMemberByNameAndEmail(name, email);
     }
+
+    public String getWriteNameByBoardId(int memberId) {
+        return memberRepository.getWriteNameByBoardID(memberId);
+    }
 }

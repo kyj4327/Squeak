@@ -4,7 +4,11 @@ import PenandSource.dto.Member;
 import PenandSource.util.MysqlUtil;
 import PenandSource.util.SecSql;
 
+import java.util.List;
+
 public class MemberRepository {
+    private List<Member> members;
+
 
     public Member getMemberByLoginId(String loginId) {
 
@@ -40,5 +44,14 @@ public class MemberRepository {
         int id = MysqlUtil.insert(sql);
 
         return id;
+    }
+
+    public String getWriteNameByBoardID(int memberId) {
+        for(Member member : members) {
+            if (member.getId() == memberId) {
+                return member.getLoginId();
+            }
+        }
+        return "";
     }
 }
