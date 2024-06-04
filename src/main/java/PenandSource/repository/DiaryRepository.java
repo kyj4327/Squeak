@@ -40,11 +40,11 @@ public class DiaryRepository {
         return diaries;
     }
 
-    public int write(int loginedMemberId, String title, String content, String stupidCost, String diet) {
+    public int write(int loginedMemberId, String updateDate, String title, String content, String stupidCost, String diet) {
         SecSql sql = new SecSql();
         sql.append("INSERT INTO diary");
         sql.append("SET regDate= NOW()");
-        sql.append(", updateDate = NOW()");
+        sql.append(", updateDate =?", updateDate);
         sql.append(", title =?", title);
         sql.append(", content=?", content);
         sql.append(", stupidCost=?", stupidCost);
@@ -77,24 +77,6 @@ public class DiaryRepository {
 
 //        Map<String, Object> diaryRow = MysqlUtil.selectRow(sql);
         return new Diary(MysqlUtil.selectRow(sql));
-    }
-
-    public void modify(int id, String title, String content,String stupidCost, String diet) {
-        SecSql sql = new SecSql();
-        sql.append("UPDATE diary");
-        sql.append("SET updateDate = NOW()");
-        sql.append(", title =?", title);
-        sql.append(", content=?", content);
-        sql.append(", stupidCost=?",stupidCost);
-        sql.append(", diet=?",diet);
-        sql.append("WHERE id =?",id);
-        /*
-        멍청비용이랑 식단 넣기. -> 널이 아니라 빈값....
-         */
-
-        // id 기준으로 등록  --> 일기 적고 해당 일기 지정한 날로 변경하
-
-        MysqlUtil.update(sql);
     }
 
     public void delete(int id) {
