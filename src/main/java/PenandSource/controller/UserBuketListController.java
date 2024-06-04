@@ -40,18 +40,18 @@ public class UserBuketListController extends Controller{
         rq.setAttr("page", page);
         rq.setAttr("totalPage", totalPage);
 
-        rq.jsp("bucketList/list");
+        rq.jsp("bucketlist/list");
     }
 
     public void showWrite(Rq rq) {
-        rq.jsp("bucketList/write");
+        rq.jsp("bucketlist/write");
     }
 
     public void actionWrite(Rq rq) {
         String content = rq.getParam("content", "");
 
         // 리다이렉트 -> 리스트로 보내준다.
-        String redirectURI = rq.getParam("redirectURI", "../bucketList/list");
+        String redirectURI = rq.getParam("redirectURI", "../bucketlist/list");
 
         if (content.length() == 0) {
             rq.historyBack("내용을 입력해주세요");

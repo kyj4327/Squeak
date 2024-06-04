@@ -17,7 +17,7 @@ import java.util.Map;
 public class UsrMemberDoLoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        MysqlUtil.setDBInfo("localhost", "root", "1234", "Squeak");
+        MysqlUtil.setDBInfo("localhost", "root", "", "Squeak");
         MysqlUtil.setDevMode(true);
 
         Rq rq = new Rq(req, resp);

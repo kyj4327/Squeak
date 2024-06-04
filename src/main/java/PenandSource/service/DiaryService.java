@@ -6,7 +6,7 @@ import PenandSource.repository.DiaryRepository;
 import PenandSource.util.Ut;
 
 import java.util.List;
-//충돌부분 commit
+
 
 public class DiaryService {
     private DiaryRepository diaryRepository;
@@ -38,10 +38,11 @@ public class DiaryService {
     }
 
 
-    public ResultData write(int loginedMemberId, String updateDate, String title, String content, String stupidCost, String diet) {
-        int id = diaryRepository.write(loginedMemberId, updateDate, title, content,stupidCost, diet);
+    public ResultData write(int loginedMemberId, String title, String content, String stupidCost, String diet) {
+        int id = diaryRepository.write(loginedMemberId, title, content,stupidCost, diet);
         return ResultData.from("S-1", Ut.f("%d번 게시물이 생성되었습니다.", id), "id", id);
     }
+
 
     public Diary getForPrintDiaryByID(int id) {
         return diaryRepository.getForPrintDiaryById(id);

@@ -7,7 +7,7 @@ import PenandSource.util.SecSql;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-//충돌부분 commit
+
 // DB 관련 -> 쿼리문들 다 리포지토리에 옮김
 public class DiaryRepository {
 
@@ -43,11 +43,11 @@ public class DiaryRepository {
         return diaries;
     }
 
-    public int write(int loginedMemberId, String updateDate, String title, String content, String stupidCost, String diet) {
+    public int write(int loginedMemberId, String title, String content, String stupidCost, String diet) {
         SecSql sql = new SecSql();
         sql.append("INSERT INTO diary");
         sql.append("SET regDate= NOW()");
-        sql.append(", updateDate =?", updateDate);
+        sql.append(", updateDate = NOW()");
         sql.append(", title =?", title);
         sql.append(", content=?", content);
         sql.append(", stupidCost=?", stupidCost);

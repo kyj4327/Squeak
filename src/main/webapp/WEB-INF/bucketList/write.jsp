@@ -26,7 +26,7 @@
 
 <section class="write_section">
     <div class="con">
-        <h1> 맵 일기 쓰기 페이지</h1>
+        <h1> 버킷 쓰기 페이지</h1>
         <form action="doWrite" method="POST">
 
             <div>내용 : <textarea autocomplete="off" placeholder="내용을 입력해주세요." name="content" type="text"></textarea></div>
