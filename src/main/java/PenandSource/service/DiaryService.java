@@ -79,4 +79,8 @@ public class DiaryService {
         }
         return ResultData.from("S-1", "삭제되었습니다.");
     }
+
+    public Diary getDiaryById(int id) {
+        return diaryRepository.getDiaryById(id);
+    }
 }
