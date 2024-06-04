@@ -7,9 +7,11 @@ import PenandSource.util.SecSql;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+//충돌부분 commit
 // DB 관련 -> 쿼리문들 다 리포지토리에 옮김
 public class DiaryRepository {
+
+    private List<Diary> diaries;
 
     public int getTotalCount() {
         SecSql sql = new SecSql();
@@ -21,6 +23,7 @@ public class DiaryRepository {
         return totalCount;
     }
 
+    // 리스트 뽑기
     public List<Diary> getForPrintDiaries(int itemInAPage, int limitFrom) {
         SecSql sql = new SecSql();
         sql.append("SELECT D.*, M.name AS writerName");
@@ -33,18 +36,18 @@ public class DiaryRepository {
         List<Map<String, Object>> selectRows = MysqlUtil.selectRows(sql);
         List<Diary> diaries = new ArrayList<>();
 
-        for(Map<String,Object> selectRow : selectRows){
+        for (Map<String, Object> selectRow : selectRows) {
             diaries.add(new Diary(selectRow));
         }
 
         return diaries;
     }
 
-    public int write(int loginedMemberId, String title, String content, String stupidCost, String diet) {
+    public int write(int loginedMemberId, String updateDate, String title, String content, String stupidCost, String diet) {
         SecSql sql = new SecSql();
         sql.append("INSERT INTO diary");
         sql.append("SET regDate= NOW()");
-        sql.append(", updateDate = NOW()");
+        sql.append(", updateDate =?", updateDate);
         sql.append(", title =?", title);
         sql.append(", content=?", content);
         sql.append(", stupidCost=?", stupidCost);
@@ -79,15 +82,15 @@ public class DiaryRepository {
         return new Diary(MysqlUtil.selectRow(sql));
     }
 
-    public void modify(int id, String title, String content,String stupidCost, String diet) {
+    public void modify(int id, String title, String content, String stupidCost, String diet) {
         SecSql sql = new SecSql();
         sql.append("UPDATE diary");
         sql.append("SET updateDate = NOW()");
         sql.append(", title =?", title);
         sql.append(", content=?", content);
-        sql.append(", stupidCost=?",stupidCost);
-        sql.append(", diet=?",diet);
-        sql.append("WHERE id =?",id);
+        sql.append(", stupidCost=?", stupidCost);
+        sql.append(", diet=?", diet);
+        sql.append("WHERE id =?", id);
         /*
         멍청비용이랑 식단 넣기. -> 널이 아니라 빈값....
          */
@@ -105,5 +108,14 @@ public class DiaryRepository {
 
         MysqlUtil.delete(sql);
 
+    }
+
+    public Diary getDiaryById(int id) {
+        for (Diary diary : diaries) {
+            if (diary.getId() == id) {
+                return diary;
+            }
+        }
+        return null;
     }
 }

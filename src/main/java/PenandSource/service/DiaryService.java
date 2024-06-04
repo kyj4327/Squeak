@@ -6,7 +6,7 @@ import PenandSource.repository.DiaryRepository;
 import PenandSource.util.Ut;
 
 import java.util.List;
-
+//충돌부분 commit
 
 public class DiaryService {
     private DiaryRepository diaryRepository;
@@ -38,28 +38,13 @@ public class DiaryService {
     }
 
 
-    public ResultData write(int loginedMemberId, String title, String content, String stupidCost, String diet) {
-        int id = diaryRepository.write(loginedMemberId, title, content,stupidCost, diet);
+    public ResultData write(int loginedMemberId, String updateDate, String title, String content, String stupidCost, String diet) {
+        int id = diaryRepository.write(loginedMemberId, updateDate, title, content,stupidCost, diet);
         return ResultData.from("S-1", Ut.f("%d번 게시물이 생성되었습니다.", id), "id", id);
     }
 
     public Diary getForPrintDiaryByID(int id) {
         return diaryRepository.getForPrintDiaryById(id);
-    }
-
-    public ResultData modify(int id, String title, String content,String stupidCost,String diet ) {
-        diaryRepository.modify(id, title, content,stupidCost,diet);
-
-        return ResultData.from("S-1", Ut.f("%d번 게시물이 수정되었습니다.", id), "id", id);
-    }
-
-    // 로그인한 아이디가 작성한 글만 수정가능하게.
-    public ResultData actorCanModify(int loginedMemberId, Diary diary) {
-        // 로그인 아이디 와 게시글의 아이디가 같은가
-        if (loginedMemberId != diary.getMemberId()) {
-            return ResultData.from("F-1","권한이 없습니다.");
-        }
-        return ResultData.from("S-1","수정가능합니다.");
     }
 
     public ResultData delete(int id) {
@@ -78,5 +63,9 @@ public class DiaryService {
             return ResultData.from("F-1","권한이 없습니다.");
         }
         return ResultData.from("S-1", "삭제되었습니다.");
+    }
+
+    public Diary getDiaryById(int id) {
+        return diaryRepository.getDiaryById(id);
     }
 }
