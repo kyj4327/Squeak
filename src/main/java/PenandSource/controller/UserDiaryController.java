@@ -100,7 +100,7 @@ public class UserDiaryController extends Controller{
         }
 
         int loginedMemberId = (int)session.getAttribute("loginedMemberId");
-
+// 충돌부분 commit
         ResultData writeRd = diaryService.write(loginedMemberId, updateDate, title, content,stupidCost,diet);
         int id = (int) writeRd.getBody().get("id");
 //        redirectURI = redirectURI.replace("[NEW_ID]", id + ""); // 해당 게시글 내용으로 이동
