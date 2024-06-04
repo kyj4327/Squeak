@@ -170,7 +170,7 @@
         <img class="logo" src="https://ifh.cc/g/7zvABf.png" alt="Logo"> 
         <form class="join_form" action="doJoin" method="POST" onsubmit="JoinForm_submit(this); return false;">
             <div class="divClass">
-                <input id="username" class="form_text" type="text" placeholder="이름">
+                <input id="username" class="form_text" type="text" placeholder="이름" name="name">
             </div>
             <div class="divClass">
                 <input id="user_id" class="form_text" type="text" placeholder="아이디" name="loginId">
