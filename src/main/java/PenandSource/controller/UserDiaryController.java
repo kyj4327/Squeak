@@ -107,7 +107,7 @@ public class UserDiaryController extends Controller{
 
         int loginedMemberId = (int)session.getAttribute("loginedMemberId");
 
-        ResultData writeRd = diaryService.write(loginedMemberId, updateDate, title, content,stupidCost,diet);
+        ResultData writeRd = diaryService.write(loginedMemberId, title, content,stupidCost,diet);
         int id = (int) writeRd.getBody().get("id");
 //        redirectURI = redirectURI.replace("[NEW_ID]", id + ""); // 해당 게시글 내용으로 이동
 //        redirectURI = redirectURI.replace("list", id + ""); // Id 지정해주면 해당 게시글로 이동 -> 우리는 그냥 게시글목록으로 바로 넘겨
