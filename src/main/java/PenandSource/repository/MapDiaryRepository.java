@@ -4,6 +4,10 @@ import PenandSource.dto.MapDiary;
 import PenandSource.util.MysqlUtil;
 import PenandSource.util.SecSql;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 // DB 관련 -> 쿼리문들 다 리포지토리에 옮김
 public class MapDiaryRepository {
 
@@ -34,5 +38,33 @@ public class MapDiaryRepository {
 
 //        Map<String, Object> diaryRow = MysqlUtil.selectRow(sql);
         return new MapDiary(MysqlUtil.selectRow(sql));
+    }
+
+    public int getTotalCount() {
+        SecSql sql = new SecSql();
+        sql.append("SELECT COUNT(*)");
+        sql.append("FROM mapDiary");
+
+        int totalCount = MysqlUtil.selectRowIntValue(sql);
+
+        return totalCount;
+    }
+
+    public List<MapDiary> getForPrintDiaries(int itemInAPage, int limitFrom) {
+        SecSql sql = new SecSql();
+        sql.append("SELECT D.*, M.name AS writerName");
+        sql.append("FROM mapDiary AS D");
+        sql.append("INNER JOIN `member` AS M");
+        sql.append("ON D.memberId = M.id");
+        sql.append("ORDER BY D.id DESC");
+        sql.append("LIMIT ?, ?", limitFrom, itemInAPage);
+
+        List<Map<String, Object>> selectRows = MysqlUtil.selectRows(sql);
+        List<MapDiary> mapDiaries = new ArrayList<>();
+
+        for (Map<String, Object> selectRow : selectRows) {
+            mapDiaries.add(new MapDiary(selectRow));
+        }
+        return mapDiaries;
     }
 }
