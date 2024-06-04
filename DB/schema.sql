@@ -69,3 +69,15 @@ FROM diary AS D
          INNER JOIN member as M
                     on D.memberId = M.id
 order by id DESC
+
+
+# 맵다이어리
+CREATE TABLE mapDiary(
+                         id INT(10) UNSIGNED NOT NULL PRIMARY KEY auto_increment,
+                         title CHAR(200) NOT NULL,
+                         content LONGTEXT NOT NULL,
+                         address LONGTEXT
+);
+ALTER TABLE mapDiary Add COLUMN memberId Int(10) UNSIGNED NOT NULL;
+
+SELECT * FROM mapDiary

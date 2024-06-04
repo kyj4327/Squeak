@@ -108,7 +108,10 @@ public class MysqlUtil {
 
                 for (int columnIndex = 0; columnIndex < columnSize; columnIndex++) {
                     String columnName = metaData.getColumnName(columnIndex + 1);
+
+                    System.out.println(columnName);
                     Object value = rs.getObject(columnName);
+                    System.out.println(value);
 
                     if (value instanceof Long) {
                         int numValue = (int) (long) value;

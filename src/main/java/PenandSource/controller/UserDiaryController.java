@@ -4,6 +4,7 @@ import PenandSource.Rq;
 import PenandSource.dto.Diary;
 import PenandSource.dto.ResultData;
 import PenandSource.service.DiaryService;
+import PenandSource.service.MemberService;
 import PenandSource.util.Ut;
 import jakarta.servlet.http.HttpSession;
 
@@ -12,6 +13,7 @@ import java.util.List;
 public class UserDiaryController extends Controller{
 
     private DiaryService diaryService;
+    private MemberService memberService;
 
     public UserDiaryController() {
         diaryService = new DiaryService();
@@ -58,11 +60,15 @@ public class UserDiaryController extends Controller{
             return;
         }
 
+        Diary foundDiary = diaryService.getDiaryById(id);
+
         Diary diary = diaryService.getForPrintDiaryByID(id);
 
         if (diary == null) {
             rq.historyBack("잘못된 요청입니다");
         }
+
+        String writerName = memberService.getWriteNameByBoardId(foundDiary.getMemberId());
 
         rq.setAttr("diary", diary);
 
