@@ -1,6 +1,7 @@
 package PenandSource.repository;
 
 import PenandSource.dto.BucketList;
+import PenandSource.dto.MapDiary;
 import PenandSource.util.MysqlUtil;
 import PenandSource.util.SecSql;
 
@@ -72,5 +73,25 @@ public class BuketListRepository {
             }
         }
         return null;
+    }
+
+    // 로그인 아이디랑 memberID 일치만 리스트로 불러오기.
+    public List<BucketList> getForPrintBucketListByMemberId(int memberId) {
+        SecSql sql = new SecSql();
+        sql.append("SELECT B.*, M.name AS writerName");
+        sql.append("FROM bucketList AS B");
+        sql.append("INNER JOIN member AS M");
+        sql.append("ON B.memberId = M.id");
+        sql.append("WHERE B.memberId = ?",memberId);
+        sql.append("ORDER BY B.id DESC");
+
+        List<Map<String, Object>> selectRows = MysqlUtil.selectRows(sql);
+        List<BucketList> bucketLists = new ArrayList<>();
+
+        for (Map<String, Object> selectRow : selectRows) {
+            bucketLists.add(new BucketList(selectRow));
+        }
+
+        return bucketLists;
     }
 }

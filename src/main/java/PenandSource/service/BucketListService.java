@@ -1,6 +1,7 @@
 package PenandSource.service;
 
 import PenandSource.dto.BucketList;
+import PenandSource.dto.MapDiary;
 import PenandSource.dto.ResultData;
 import PenandSource.repository.BuketListRepository;
 import PenandSource.util.Ut;
@@ -39,7 +40,8 @@ public class BucketListService {
 
     public ResultData write(int loginedMemberId,String content) {
         int id = buketListRepository.write(loginedMemberId, content);
-        return ResultData.from("S-1", Ut.f("%d번 게시물이 생성되었습니다.", id), "id", id);
+//        return ResultData.from("S-1", Ut.f("%d번 게시물이 생성되었습니다.", id), "id", id);
+        return ResultData.from("S-1", Ut.f("당신의 버킷이 이루지길 바랍니다"), "id", id);
     }
 
     public BucketList getForPrintBucketListByID(int id) {
@@ -50,4 +52,8 @@ public class BucketListService {
         return buketListRepository.getBucketListById(id);
     }
 
+    public List<BucketList> getForPrintBucketListByMemberId(int loginedMemberId) {
+        List<BucketList> mapDiaries = buketListRepository.getForPrintBucketListByMemberId(loginedMemberId);
+        return mapDiaries;
+    }
 }

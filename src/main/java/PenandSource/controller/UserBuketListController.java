@@ -2,6 +2,7 @@ package PenandSource.controller;
 
 import PenandSource.Rq;
 import PenandSource.dto.BucketList;
+import PenandSource.dto.MapDiary;
 import PenandSource.dto.ResultData;
 import PenandSource.service.BucketListService;
 import PenandSource.service.MemberService;
@@ -21,7 +22,8 @@ public class UserBuketListController extends Controller{
     @Override
     public void performAction(Rq rq) {
         switch (rq.getActionMethodName()) {
-            case "list" -> showList(rq);
+            case "list2" -> showList(rq);
+            case "list" -> showList2(rq);
             case "write" -> showWrite(rq);
             case "doWrite" -> actionWrite(rq);
             default -> rq.println("존재하지 않는 페이지 입니다.");
@@ -42,6 +44,23 @@ public class UserBuketListController extends Controller{
 
         rq.jsp("bucketlist/list");
     }
+
+    public void showList2(Rq rq) {
+
+        HttpSession session = rq.getSession();
+
+        if(session.getAttribute("loginedMemberId") == null) {
+            rq.replace("로그인 후 이용해주세요.", "../member/login");
+            return;
+        }
+        int loginedMemberId = (int)session.getAttribute("loginedMemberId");
+
+        List<BucketList> bucketLists = bucketListService.getForPrintBucketListByMemberId(loginedMemberId);
+        rq.setAttr("bucketLists", bucketLists);
+
+        rq.jsp("bucketlist/list2");
+    }
+
 
     public void showWrite(Rq rq) {
         rq.jsp("bucketlist/write");
