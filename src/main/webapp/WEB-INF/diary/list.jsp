@@ -79,5 +79,3 @@
         </div>
     </div>
 </section>
-
-<%@ include file="../part/foot.jspf"%>

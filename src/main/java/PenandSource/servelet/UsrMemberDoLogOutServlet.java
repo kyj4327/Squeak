@@ -26,7 +26,7 @@ public class UsrMemberDoLogOutServlet extends HttpServlet {
         rq.print("""
                 <script>
                   alert('오늘 하루도 수고하셨습니다.');
-                  location.replace('/home/main');
+                  location.replace('/user/member/login');
                 </script>
                 """);
     }

@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet("/home/mainTab")
+@WebServlet("/home/bucketlist")
 public class HomeMainTabServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -18,7 +18,7 @@ public class HomeMainTabServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
 
-        rq.jsp("home/mainTab");
+        rq.jsp("home/bucketlist");
     }
 
     @Override
