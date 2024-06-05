@@ -311,3 +311,13 @@ gradle-app.setting
 *.hprof
 
 # End of https://www.toptal.com/developers/gitignore/api/maven,gradle
+
+
+#MysqlUtil 제외하기
+src/main/java/PenandSource/util/MysqlUtil.java
+
+# 멤버 관련 DB 연결 servlet
+src/main/java/PenandSource/servelet/UserMemberJoinServlet.java
+src/main/java/PenandSource/servelet/UsrMemberDoLoginServlet.java
+src/main/java/PenandSource/servelet/UsrMemberDoLogOutServlet.java
+

@@ -11,6 +11,8 @@ import java.util.Map;
 // DB 관련 -> 쿼리문들 다 리포지토리에 옮김
 public class DiaryRepository {
 
+    private List<Diary> diaries;
+
     public int getTotalCount() {
         SecSql sql = new SecSql();
         sql.append("SELECT COUNT(*)");
@@ -21,6 +23,7 @@ public class DiaryRepository {
         return totalCount;
     }
 
+    // 리스트 뽑기
     public List<Diary> getForPrintDiaries(int itemInAPage, int limitFrom) {
         SecSql sql = new SecSql();
         sql.append("SELECT D.*, M.name AS writerName");
@@ -33,7 +36,7 @@ public class DiaryRepository {
         List<Map<String, Object>> selectRows = MysqlUtil.selectRows(sql);
         List<Diary> diaries = new ArrayList<>();
 
-        for(Map<String,Object> selectRow : selectRows){
+        for (Map<String, Object> selectRow : selectRows) {
             diaries.add(new Diary(selectRow));
         }
 
@@ -79,15 +82,15 @@ public class DiaryRepository {
         return new Diary(MysqlUtil.selectRow(sql));
     }
 
-    public void modify(int id, String title, String content,String stupidCost, String diet) {
+    public void modify(int id, String title, String content, String stupidCost, String diet) {
         SecSql sql = new SecSql();
         sql.append("UPDATE diary");
         sql.append("SET updateDate = NOW()");
         sql.append(", title =?", title);
         sql.append(", content=?", content);
-        sql.append(", stupidCost=?",stupidCost);
-        sql.append(", diet=?",diet);
-        sql.append("WHERE id =?",id);
+        sql.append(", stupidCost=?", stupidCost);
+        sql.append(", diet=?", diet);
+        sql.append("WHERE id =?", id);
         /*
         멍청비용이랑 식단 넣기. -> 널이 아니라 빈값....
          */
@@ -105,5 +108,14 @@ public class DiaryRepository {
 
         MysqlUtil.delete(sql);
 
+    }
+
+    public Diary getDiaryById(int id) {
+        for (Diary diary : diaries) {
+            if (diary.getId() == id) {
+                return diary;
+            }
+        }
+        return null;
     }
 }
