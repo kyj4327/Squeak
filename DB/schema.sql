@@ -56,7 +56,6 @@ CREATE TABLE member(
                        loginPw char(100) NOT NULL,
                        name char(100) not null ,
                        email char(100) NOT NULL unique,
-                       userProfile varchar(70)
 );
 
 # 일기에 작성자 추가.
