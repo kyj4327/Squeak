@@ -1,9 +1,12 @@
 package PenandSource.service;
 
+import PenandSource.dto.Diary;
 import PenandSource.dto.MapDiary;
 import PenandSource.dto.ResultData;
 import PenandSource.repository.MapDiaryRepository;
 import PenandSource.util.Ut;
+
+import java.util.List;
 
 public class MapDiaryService {
 
@@ -47,4 +50,25 @@ public class MapDiaryService {
         return mapDiaryRepository.getForPrintMapDiaryById(id);
     }
 
+    //페이지
+    public int getItemInAPage() {
+        return 10;
+    }
+    public int getForPrintListTotalPage() {
+        int itemInAPage = getItemInAPage();
+
+        int totalCount = mapDiaryRepository.getTotalCount();
+        int totalPage = (int)Math.ceil((double) totalCount / itemInAPage);
+
+        return totalPage;
+    }
+
+    public List<MapDiary> getForPrintmapDiaries(int page) {
+        int itemInAPage = getItemInAPage();
+        int limitFrom = (page - 1) * itemInAPage;
+
+        List<MapDiary> mapDiaries = mapDiaryRepository.getForPrintDiaries(itemInAPage, limitFrom);
+
+        return mapDiaries;
+    }
 }

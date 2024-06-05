@@ -73,7 +73,8 @@ public class DispatcherServlet extends HttpServlet {
                     case "diary" -> userDiaryController.performAction(rq);
                     // mapDiary -> 이슈 발생 = mapdiary 로 한번이상 접속시 쿠키에 남아서 브라우져가 값을 계속 소문자로 변경한다 애초에 소문자로 바꿈
                     case "mapdiary" -> userMapDiaryController.performAction(rq);
-                    case "bucketList" -> userBuketListController.performAction(rq);
+                    // bucketList -> 이슈 발생 = bucketlist 로 한번이상 접속시 쿠키에 남아서 브라우져가 값을 계속 소문자로 변경한다 애초에 소문자로 바꿈
+                    case "bucketlist" -> userBuketListController.performAction(rq);
                 }
             }
         }
